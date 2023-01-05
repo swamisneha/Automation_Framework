@@ -26,10 +26,15 @@ namespace EmployeeManagement
 
             driver.FindElement(By.XPath("//button[@type='submit']")).Click();
 
-            string nameValidation = driver.FindElement(By.CssSelector("[class='oxd-text oxd-text--h6 --strong']")).Text;
-            Console.WriteLine(nameValidation.ToCharArray());
-            Assert.That(expetedresult.Contains(nameValidation), "Assertion on error msg");
-            Console.WriteLine(expetedresult);
+
+            string headerLoctorXpath = "//h6[contains(normalize-space(),'@@@@@')]";
+            headerLoctorXpath = headerLoctorXpath.Replace("@@@@@", firstName);
+            Console.WriteLine(headerLoctorXpath);
+            string nameValidation = driver.FindElement(By.XPath(headerLoctorXpath)).Text;
+            
+            Console.WriteLine(nameValidation);
+           
+            Assert.That(nameValidation, Is.EqualTo(expetedresult));
         }
     }
 }

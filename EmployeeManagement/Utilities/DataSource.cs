@@ -45,20 +45,19 @@ namespace EmployeeManagement.Utilities
             string[] dataSet1 = new string[6];
             dataSet1[0] = "Admin";
             dataSet1[1] = "admin123";
-            dataSet1[2] = "John";
-            dataSet1[3] = "G";
-            dataSet1[4] = "Sick";
-            dataSet1[5] = "John Sick";
+            dataSet1[2] = "john";
+            dataSet1[3] = "jj";
+            dataSet1[4] = "wick";
+            dataSet1[5] = "john wick";
            
 
             string[] dataSet2 = new string[6];
             dataSet2[0] = "Admin";
             dataSet2[1] = "admin123";
-            dataSet2[2] = "Neena";
-            dataSet2[3] = "M";
-            dataSet2[4] = "Kochar";
-            dataSet2[5] = "Neena Kockar";
-          //  dataSet2[6] = "Neena Kockar";
+            dataSet2[2] = "saul";
+            dataSet2[3] = "g";
+            dataSet2[4] = "goodman";
+            dataSet2[5] = "saul goodman";
 
             object[] allDataSet = new object[2]; // Number of test cases
             allDataSet[0] = dataSet1;
