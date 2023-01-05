@@ -10,7 +10,7 @@ namespace EmployeeManagement.Utilities
     {
         public static object[] InvalidLoginData()
         {
-            string[] dataSet1 = new string[3];
+            string[] dataSet1 = new string[3];           
             dataSet1[0] = "john";
             dataSet1[1] = "john123";
             dataSet1[2] = "Invalid credential";
@@ -36,6 +36,33 @@ namespace EmployeeManagement.Utilities
             allDataSet[1] = dataSet2;
             allDataSet[2] = dataSet3;
             allDataSet[3] = dataSet4;
+            return allDataSet;
+
+        }
+
+        public static object[] AddValidEmployeeTestData()
+        {
+            string[] dataSet1 = new string[6];
+            dataSet1[0] = "Admin";
+            dataSet1[1] = "admin123";
+            dataSet1[2] = "John";
+            dataSet1[3] = "G";
+            dataSet1[4] = "Sick";
+            dataSet1[5] = "John Sick";
+           
+
+            string[] dataSet2 = new string[6];
+            dataSet2[0] = "Admin";
+            dataSet2[1] = "admin123";
+            dataSet2[2] = "Neena";
+            dataSet2[3] = "M";
+            dataSet2[4] = "Kochar";
+            dataSet2[5] = "Neena Kockar";
+          //  dataSet2[6] = "Neena Kockar";
+
+            object[] allDataSet = new object[2]; // Number of test cases
+            allDataSet[0] = dataSet1;
+            allDataSet[1] = dataSet2;
             return allDataSet;
 
         }

@@ -1,4 +1,5 @@
 ﻿using EmployeeManagement.Base;
+using EmployeeManagement.Utilities;
 using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
@@ -10,19 +11,25 @@ namespace EmployeeManagement
 {
     public class EmployeeTest : AutomationWrapper
     {
-        [Test]
-        public void AddValidEmployeeTest()
+        [Test, TestCaseSource(typeof(DataSource), nameof(DataSource.AddValidEmployeeTestData))]
+        public void AddValidEmployeeTest(string username, string password, string firstName, string middleName, string lastName,  string expetedresult)
         {
-            driver.FindElement(By.Name("username")).SendKeys("Admin");
-            driver.FindElement(By.Name("password")).SendKeys("admin123");
+            driver.FindElement(By.Name("username")).SendKeys(username);
+            driver.FindElement(By.Name("password")).SendKeys(password);
             driver.FindElement(By.XPath("//button[text()=' Login ']")).Click();
 
             driver.FindElement(By.XPath("//span[text()='PIM']")).Click();
-            driver.FindElement(By.XPath("//a[text()='Add Employee']")).Click();
-            driver.FindElement(By.Name("firstName")).SendKeys("Neena");
-            driver.FindElement(By.Name("middleName")).SendKeys("Jack");
-            driver.FindElement(By.Name("lastName")).SendKeys("Kochar");
+            driver.FindElement(By.XPath("//a[normalize-space()='Add Employee']")).Click();
+            driver.FindElement(By.Name("firstName")).SendKeys(firstName) ;
+            driver.FindElement(By.Name("middleName")).SendKeys(middleName) ;
+            driver.FindElement(By.Name("lastName")).SendKeys(lastName) ;
+
             driver.FindElement(By.XPath("//button[@type='submit']")).Click();
+
+            string nameValidation = driver.FindElement(By.CssSelector("[class='oxd-text oxd-text--h6 --strong']")).Text;
+            Console.WriteLine(nameValidation.ToCharArray());
+            Assert.That(expetedresult.Contains(nameValidation), "Assertion on error msg");
+            Console.WriteLine(expetedresult);
         }
     }
 }
