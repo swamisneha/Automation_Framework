@@ -19,28 +19,23 @@ namespace EmployeeManagement
             //string value = range.Cell(1, 1).GetString();
             //Console.WriteLine(value);
 
-           // for(int r =2; r <= 4; r++)
-           // {
-            //    for(int c = 1; c <= 3; c++)
-               // {
-               //     string value = range.Cell(r,c).GetString();
-                 //   Console.WriteLine(value);
-              //  }
-           // }
-            
-            for(int i= 2; i <= 4; i++)
+            object[] allDataset = new object[2];
+
+            for (int r = 2; r <= 4; r++)
             {
-                for(int j = 1; j<=3; j++)
+                string[] arr = new string[3];
+
+                for (int c = 1; c <= 3; c++)
                 {
-                    if(i==2 && j == 1)
-                    {
-                        string value = range.Cell(i, j).GetString();
-                        Console.WriteLine(value);
-                    }
+                    string value = range.Cell(r, c).GetString();
+                    Console.WriteLine(value);
+                    arr[c-1] = value;
                 }
+                allDataset[r-2] = arr;
             }
 
             book.Dispose();
         }
+         
     }
 }
