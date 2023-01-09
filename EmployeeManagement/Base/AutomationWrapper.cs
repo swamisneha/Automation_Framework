@@ -15,18 +15,20 @@ namespace EmployeeManagement.Base
         [SetUp]
         public void BeforeMethod()
         {
-            string browserName = "edge";
+            string browserName = "";
             if (browserName.ToLower().Equals("edge"))
             {
                 driver = new EdgeDriver();
             }
-            else if(browserName.ToLower().Equals("firefox"))
+            else if (browserName.ToLower().Equals("firefox"))
             {
                 driver = new EdgeDriver();
             }
-            else 
+            else
+            {
+                driver = new ChromeDriver();
 
-            driver = new ChromeDriver();
+            }
             driver.Manage().Window.Maximize();
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             driver.Url = ("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");

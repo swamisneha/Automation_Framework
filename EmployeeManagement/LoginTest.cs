@@ -1,4 +1,5 @@
 ﻿using EmployeeManagement.Base;
+using EmployeeManagement.Pages;
 using EmployeeManagement.Utilities;
 using OpenQA.Selenium;
 using System;
@@ -11,31 +12,31 @@ namespace EmployeeManagement
 {
     public class LoginTest : AutomationWrapper
     {
-        [Test]
+        [Test, Retry(2)]
         public void ValidLoginTest()
         {
-            driver.FindElement(By.Name("username")).SendKeys("Admin");
-            driver.FindElement(By.Name("password")).SendKeys("admin123");
-            driver.FindElement(By.XPath("//button[text()=' Login ']")).Click();
+            //driver.FindElement(By.Name("username")).SendKeys("Admin");
 
-            String actualUrl = driver.Url;
+            LoginPage loginpage = new LoginPage(driver);
+            loginpage.EnterUsername("Admin");
+            loginpage.EnterPassword("admin123");
+            loginpage.ClickOnLogin();
+
+            string actualUrl = driver.Url;
             Assert.That(actualUrl, Is.EqualTo("https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index"));
         }
 
         [Test, TestCaseSource(typeof(DataSource), nameof(DataSource.InvalidLoginTestData2))]
-        //[TestCase("john", "john123", "Invalid credential")]
-        //[TestCase("peter", "peter234", "Invalid credential")]
-        //[TestCase("saul", "saul123", "Invalid credential")]
+     
         public void InvalidLoginTest(string username, string password, string expectedError)
         {
-            driver.FindElement(By.Name("username")).SendKeys(username);
-            driver.FindElement(By.Name("password")).SendKeys(password);           
-            driver.FindElement(By.XPath("//button[text()=' Login ']")).Click();
+            LoginPage loginpage = new LoginPage(driver);
 
-            string actualError = driver.FindElement(By.XPath("//p[contains(normalize-space(),'cred')]")).Text;
-            Console.WriteLine(actualError.ToUpper());
+            loginpage.EnterUsername("Admin");
+            loginpage.EnterPassword("admin123");
+            loginpage.ClickOnLogin();
 
-            //Assert the error 
+            string actualError = loginpage.GetInvalidErrorMassage();
             Assert.That(actualError.Contains(expectedError), "Assertion on error msg");
         }
     }

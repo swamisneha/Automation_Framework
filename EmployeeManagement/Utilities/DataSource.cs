@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NUnit.Framework.Internal;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -68,15 +69,14 @@ namespace EmployeeManagement.Utilities
 
         public static object[] InvalidLoginTestData2()
         {
-            object[] data = ExcelUtils.GetSheetIntoObjectArray("C:\\AutomationTraining\\AutomationFramework\\EmployeeManagement\\Test Data\\Orange_data.xlsx", "InvalidLoginTest");
+            object[] data = ExcelUtils.GetSheetIntoObjectArray(@"C:\AutomationTraining\AutomationFramework\EmployeeManagement\Test Data\Orange_data.xlsx", "InvalidLoginTest");
             return data;
         }
 
         public static object[] AddValidEmployeeData2()
         {
             object[] data = ExcelUtils.GetSheetIntoObjectArray
-                 (@"C:\Mine\Company\Maveric C# 2022\AutomationFramework\EmployeeManagement\TestData\orange_data.xlsx"
-                    , "AddValidEmployeeTest");
+                 (@"C:\AutomationTraining\AutomationFramework\EmployeeManagement\Test Data\Orange_data.xlsx", "AddValidEmployeeTest");
             return data;
         }
     }

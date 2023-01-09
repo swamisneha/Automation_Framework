@@ -1,4 +1,5 @@
 ﻿using EmployeeManagement.Base;
+using EmployeeManagement.Pages;
 using EmployeeManagement.Utilities;
 using OpenQA.Selenium;
 using System;
@@ -13,27 +14,29 @@ namespace EmployeeManagement
     {
         [Test, TestCaseSource(typeof(DataSource), nameof(DataSource.AddValidEmployeeTestData))]
         public void AddValidEmployeeTest(string username, string password, string firstName, string middleName, string lastName,  string expetedresult)
-        {
-            driver.FindElement(By.Name("username")).SendKeys(username);
-            driver.FindElement(By.Name("password")).SendKeys(password);
-            driver.FindElement(By.XPath("//button[text()=' Login ']")).Click();
+        {      
+            LoginPage loginpage = new LoginPage(driver);
+            loginpage.EnterUsername("Admin");
+            loginpage.EnterPassword("admin123");
+            loginpage.ClickOnLogin();
 
-            driver.FindElement(By.XPath("//span[text()='PIM']")).Click();
-            driver.FindElement(By.XPath("//a[normalize-space()='Add Employee']")).Click();
-            driver.FindElement(By.Name("firstName")).SendKeys(firstName) ;
-            driver.FindElement(By.Name("middleName")).SendKeys(middleName) ;
-            driver.FindElement(By.Name("lastName")).SendKeys(lastName) ;
+            //Main page
+            MainPage mainPage = new MainPage(driver);
+            mainPage.ClickOnPIMMenu();
 
-            driver.FindElement(By.XPath("//button[@type='submit']")).Click();
+            //PIMPage
+            PIMPage pIMPage = new PIMPage(driver);
+            pIMPage.ClickOnAddEmployeePage();
 
+            AddEmployeePage addEmployeePage = new AddEmployeePage(driver);
+            addEmployeePage.EnterfirstName(firstName);
+            addEmployeePage.EnterMiddleName(middleName);
+            addEmployeePage.EnterlastName(lastName);
+            addEmployeePage.ClickOnSave();
 
-            string headerLoctorXpath = "//h6[contains(normalize-space(),'@@@@@')]";
-            headerLoctorXpath = headerLoctorXpath.Replace("@@@@@", firstName);
-            Console.WriteLine(headerLoctorXpath);
-            string nameValidation = driver.FindElement(By.XPath(headerLoctorXpath)).Text;
+            PersonalDetailPage personalDetailPage = new PersonalDetailPage(driver);
+            string nameValidation = personalDetailPage.GetAddEmployeeName(firstName);
             
-            Console.WriteLine(nameValidation);
-           
             Assert.That(nameValidation, Is.EqualTo(expetedresult));
         }
     }
